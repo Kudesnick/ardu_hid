@@ -1,14 +1,20 @@
 
+#define BTN_PIN 0
+#define LED_PIN 1
+
 void setup() {
-  // put your setup code here, to run once:
-  pinMode(1, OUTPUT);
+  pinMode(BTN_PIN, INPUT);
+  pinMode(LED_PIN, OUTPUT);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  digitalWrite(1, HIGH);
-  delay(1000);
-
-  digitalWrite(1, LOW);
-  delay(1000);
+  if (digitalRead(BTN_PIN) == LOW)
+  {
+    digitalWrite(LED_PIN, HIGH);
+  }
+  else
+  {
+    digitalWrite(LED_PIN, LOW);
+  }
+  delay(25);
 }
