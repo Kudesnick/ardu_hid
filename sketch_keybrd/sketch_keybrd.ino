@@ -8,7 +8,7 @@
 
 void setup()
 {
-  pinMode(BTN_PIN, INPUT);
+  pinMode(BTN_PIN, INPUT_PULLUP);
   pinMode(LED_PIN, OUTPUT);
 
   DigiKeyboard.update();
