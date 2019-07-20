@@ -19,6 +19,11 @@ void led_blink()
   digitalWrite(LED_PIN, LOW);
 }
 
+void key_send()
+{
+  DigiKeyboard.sendKeyStroke(KEY_K, MOD_CONTROL_LEFT);
+}
+
 void loop()
 {
   if (digitalRead(BTN_PIN) == LOW)
@@ -28,6 +33,7 @@ void loop()
     if (digitalRead(BTN_PIN) == LOW)
     {
       led_blink();
+      key_send();
       
       while (digitalRead(BTN_PIN) == LOW) delay(DEBOUNCE_TIME);
     }
