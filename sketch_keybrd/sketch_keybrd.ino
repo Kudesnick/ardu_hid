@@ -10,6 +10,11 @@ void setup()
 {
   pinMode(BTN_PIN, INPUT);
   pinMode(LED_PIN, OUTPUT);
+
+  DigiKeyboard.update();
+  // this is generally not necessary but with some older systems it seems to
+  // prevent missing the first character after a delay:
+  DigiKeyboard.sendKeyStroke(0);
 }
 
 void led_blink()
