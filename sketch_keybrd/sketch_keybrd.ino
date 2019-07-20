@@ -26,7 +26,7 @@ void led_blink()
 
 void key_send()
 {
-  DigiKeyboard.sendKeyStroke(KEY_K, MOD_CONTROL_LEFT);
+  DigiKeyboard.sendKeyStroke(KEY_F7, MOD_CONTROL_LEFT | MOD_ALT_LEFT);
 }
 
 void loop()
