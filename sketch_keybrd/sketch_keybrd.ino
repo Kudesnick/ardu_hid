@@ -1,20 +1,46 @@
 
 #include "DigiKeyboard.h"  
 
-void setup() {
- pinMode(0, INPUT);
- pinMode(1, INPUT);
- pinMode(2, INPUT);
+#define BTN_PIN 0
+#define LED_PIN 1
+#define DEBOUNCE_TIME 25
+#define BLINK_TIME 100
+
+void setup()
+{
+  pinMode(BTN_PIN, INPUT_PULLUP);
+  pinMode(LED_PIN, OUTPUT);
+
+  DigiKeyboard.update();
+  // this is generally not necessary but with some older systems it seems to
+  // prevent missing the first character after a delay:
+  DigiKeyboard.sendKeyStroke(0);
 }
-void loop() {
- 
-if (digitalRead(0)==HIGH){
-   DigiKeyboard.sendKeyStroke(KEY_0 , MOD_CONTROL_LEFT);
- }
- if (digitalRead(1)==HIGH){
-   DigiKeyboard.sendKeyStroke(KEY_1 , MOD_CONTROL_LEFT);
- }
- if (digitalRead(2)==HIGH){
-   DigiKeyboard.sendKeyStroke(KEY_2 , MOD_CONTROL_LEFT);
- }
+
+void led_blink()
+{
+  digitalWrite(LED_PIN, HIGH);
+  delay(BLINK_TIME);
+  digitalWrite(LED_PIN, LOW);
+}
+
+void key_send()
+{
+  DigiKeyboard.sendKeyStroke(KEY_F7, MOD_CONTROL_LEFT | MOD_ALT_LEFT);
+}
+
+void loop()
+{
+  if (digitalRead(BTN_PIN) == LOW)
+  {
+    delay(DEBOUNCE_TIME);
+    
+    if (digitalRead(BTN_PIN) == LOW)
+    {
+      led_blink();
+      key_send();
+      
+      while (digitalRead(BTN_PIN) == LOW) delay(DEBOUNCE_TIME);
+    }
+  }
 }
