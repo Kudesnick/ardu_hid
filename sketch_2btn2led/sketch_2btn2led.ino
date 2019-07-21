@@ -54,17 +54,18 @@ void btn_scan(uint8_t _pin, void(*_fn)(void))
 
 void btn1_event(void)
 {
+  DigiKeyboard.sendKeyStroke(KEY_F7, MOD_CONTROL_LEFT | MOD_ALT_LEFT);
+
   led_blink(BTN2_PIN);  
 }
 
 void btn2_event(void)
 {
-  led_blink(BTN1_PIN);  
-}
+  DigiKeyboard.sendKeyStroke(KEY_L, MOD_GUI_LEFT);
+  delay(500);
+  DigiKeyboard.sendKeyStroke(KEY_SPACE);
 
-void key_send()
-{
-  DigiKeyboard.sendKeyStroke(KEY_F7, MOD_CONTROL_LEFT | MOD_ALT_LEFT);
+  led_blink(BTN1_PIN);  
 }
 
 void loop()
