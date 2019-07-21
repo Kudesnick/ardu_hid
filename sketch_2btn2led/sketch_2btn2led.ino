@@ -34,7 +34,7 @@ void led_blink(uint8_t _pin)
   }
 }
 
-void btn_scan(uint8_t _pin)
+void btn_scan(uint8_t _pin, void(*_fn)(void))
 {
   if (digitalRead(_pin) == LOW)
   {
@@ -42,14 +42,24 @@ void btn_scan(uint8_t _pin)
     
     if (digitalRead(_pin) == LOW)
     {
-      if (_pin == BTN1_PIN)
-        led_blink(BTN2_PIN);
-      if (_pin == BTN2_PIN)
-        led_blink(BTN1_PIN);
-      
+      if (_fn != NULL)
+      {
+        _fn();
+      }
+
       while (digitalRead(_pin) == LOW) delay(DEBOUNCE_TIME);
     }
   }
+}
+
+void btn1_event(void)
+{
+  led_blink(BTN2_PIN);  
+}
+
+void btn2_event(void)
+{
+  led_blink(BTN1_PIN);  
 }
 
 void key_send()
@@ -59,6 +69,6 @@ void key_send()
 
 void loop()
 {
-  btn_scan(BTN1_PIN);
-  btn_scan(BTN2_PIN);
+  btn_scan(BTN1_PIN, btn1_event);
+  btn_scan(BTN2_PIN, btn2_event);
 }
