@@ -70,6 +70,7 @@ void btn2_event(void)
 
 void loop()
 {
+  DigiKeyboard.update();
   btn_scan(BTN1_PIN, btn1_event);
   btn_scan(BTN2_PIN, btn2_event);
 }
